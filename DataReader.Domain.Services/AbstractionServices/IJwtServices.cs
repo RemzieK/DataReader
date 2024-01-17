@@ -8,5 +8,6 @@ namespace DataReader.Domain.Services.AbstractionServices
 {
     public interface IJwtServices
     {
+        string GenerateToken(int userId, string username);
     }
 }

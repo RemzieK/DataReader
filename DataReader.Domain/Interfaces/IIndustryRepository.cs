@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataReader.Domain.Interfaces
 {
-    public interface IPasswordHashing
+    public interface IIndustryRepository
     {
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataReader.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,10 +10,11 @@ namespace DataReader.Domain.Services
 {
     public interface IDataImportService
     {
-        void ImportData(string[] lines);
-        int InsertOrUpdateCountry(SqlConnection connection, string countryName);
-        void InsertOrganization(SqlConnection connection, string[] data, int countryId);
+        Task ImportDataAsync(string jsonData, SqlConnection connection);
+      
     }
+
 }
+
 
 

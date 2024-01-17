@@ -1,43 +1,34 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
+using DataReader;
 using DataReader.Domain.Services;
+using DataReader.Domain.Services.AbstractionServices;
+using DataReader.Infrastructure.DatabaseConnection;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+
+
 
 class Program
 {
     static void Main()
     {
-        string sourceFolderPath = @"C:\DataReading";
-        string processedFolderPath = @"C:\ReadedData";
+       
+        var connectionString = "Server=localhost;Database=DataReader;User Id=sa;Password=sqldocker2022;";
 
-        try
-        {
-
-            string[] files = Directory.GetFiles(sourceFolderPath, "*.csv");
-
-
-            string connectionString = "DataReader";
+        var databaseConnection = new DatabaseConnection(connectionString);
+        var dataImportService = new DataImportService(databaseConnection);
+        var dataReaderService = new DataReaderService(dataImportService, databaseConnection);
 
 
-            DataImportService importService = new DataImportService(connectionString);
+        var consoleManager = new ConsoleLogic(dataReaderService);
 
-            foreach (string filePath in files)
-            {
-
-                string[] lines = File.ReadAllLines(filePath);
-
-
-                importService.ImportData(lines);
-
-
-                string fileName = Path.GetFileName(filePath);
-                string destinationPath = Path.Combine(processedFolderPath, fileName);
-                File.Move(filePath, destinationPath);
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error: " + ex.Message);
-
-        }
+        consoleManager.Run().GetAwaiter().GetResult();
     }
 }
+
+
+
+
+

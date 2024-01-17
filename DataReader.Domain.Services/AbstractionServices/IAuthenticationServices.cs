@@ -8,5 +8,6 @@ namespace DataReader.Domain.Services.AbstractionServices
 {
     public interface IAuthenticationServices
     {
+        Task<string?> AuthenticateAsync(string username, string password);
     }
 }

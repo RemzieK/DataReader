@@ -1,0 +1,12 @@
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\bin\Debug\net6.0\DataReader.Domain.deps.json
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\bin\Debug\net6.0\DataReader.Domain.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\bin\Debug\net6.0\DataReader.Domain.pdb
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\obj\Debug\net6.0\DataReader.Domain.csproj.AssemblyReference.cache
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\obj\Debug\net6.0\DataReader.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\obj\Debug\net6.0\DataReader.Domain.AssemblyInfoInputs.cache
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\obj\Debug\net6.0\DataReader.Domain.AssemblyInfo.cs
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\obj\Debug\net6.0\DataReader.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\obj\Debug\net6.0\DataReader.Domain.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\obj\Debug\net6.0\refint\DataReader.Domain.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\obj\Debug\net6.0\DataReader.Domain.pdb
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain\obj\Debug\net6.0\ref\DataReader.Domain.dll

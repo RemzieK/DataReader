@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataReader.Infrastructure.DTO
 {
-    internal class RolesDTO
+    public class RolesDTO
     {
+        public int RoleId { get; set; }
+        public string? RoleName { get; set; }
     }
 }

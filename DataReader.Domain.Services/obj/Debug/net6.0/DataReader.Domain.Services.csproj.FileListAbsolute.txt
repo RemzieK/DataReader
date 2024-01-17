@@ -1,0 +1,17 @@
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\bin\Debug\net6.0\DataReader.Domain.Services.deps.json
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\bin\Debug\net6.0\DataReader.Domain.Services.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\bin\Debug\net6.0\DataReader.Domain.Services.pdb
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\bin\Debug\net6.0\DataReader.Domain.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\bin\Debug\net6.0\DataReader.Infrastructure.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\bin\Debug\net6.0\DataReader.Domain.pdb
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\bin\Debug\net6.0\DataReader.Infrastructure.pdb
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\obj\Debug\net6.0\DataReader.Domain.Services.csproj.AssemblyReference.cache
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\obj\Debug\net6.0\DataReader.Domain.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\obj\Debug\net6.0\DataReader.Domain.Services.AssemblyInfoInputs.cache
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\obj\Debug\net6.0\DataReader.Domain.Services.AssemblyInfo.cs
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\obj\Debug\net6.0\DataReader.Domain.Services.csproj.CoreCompileInputs.cache
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\obj\Debug\net6.0\DataReader.Domain.Services.csproj.CopyComplete
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\obj\Debug\net6.0\DataReader.Domain.Services.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\obj\Debug\net6.0\refint\DataReader.Domain.Services.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\obj\Debug\net6.0\DataReader.Domain.Services.pdb
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.Domain.Services\obj\Debug\net6.0\ref\DataReader.Domain.Services.dll

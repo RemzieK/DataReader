@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataReader.Infrastructure.Repositories
 {
-    internal class OrganizationRepository
+    public class OrganizationRepository
     {
     }
 }

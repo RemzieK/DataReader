@@ -14,10 +14,11 @@ namespace DataReader.Domain.Entities
         public int CountryId { get; set; }
         public string? Description { get; set; }
         public int Founded { get; set; }
-        public string? Industry { get; set; }
+        public int IndustryId { get; set; }
         public int NumberOfEmployees { get; set; }
 
         public Country Country { get; set; }
+        public Industry Industry { get; set; }
     }
 
 }

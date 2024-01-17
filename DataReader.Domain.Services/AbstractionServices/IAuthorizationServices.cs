@@ -8,5 +8,6 @@ namespace DataReader.Domain.Services.AbstractionServices
 {
     public interface IAuthorizationServices
     {
+        public bool Authorize(string token, string requiredRole);
     }
 }

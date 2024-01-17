@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataReader.Infrastructure.DTO
 {
-    internal class CountryDTO
+    public class CountryDTO
     {
+        public int CountryId { get; set; }
+        public string? CountryName { get; set; }
     }
 }

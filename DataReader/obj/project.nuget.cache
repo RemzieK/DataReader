@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LDWy+ngf1QQCwHN8sQCsDwTORAdCoksRig9tSWkS2g7zdbQezLzaOSQ6yWqmIgetJ8iz1I2+PfLgbIhonAmw6Q==",
+  "dgSpecHash": "ffgTpuzIBy+8x+FySgfx166+TTsVSWZ7oyCOI7GNn5qUI8F3TmGGiXPzyUtTC0cuH70jqKg5xDJP4pPsq8NWcA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Remi\\Pictures\\Visual Studio\\Data_Reader\\DataReader\\DataReader.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "C:\\Users\\Remi\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.0.3\\microsoft.identitymodel.tokens.7.0.3.nupkg.sha512",
     "C:\\Users\\Remi\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Remi\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\Remi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Remi\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\Remi\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Remi\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

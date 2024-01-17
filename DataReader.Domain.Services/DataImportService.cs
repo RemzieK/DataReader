@@ -1,71 +1,92 @@
-﻿using System;
+﻿using DataReader.Domain.Entities;
+using DataReader.Infrastructure.DatabaseConnection;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataReader.Domain.Services
 {
-    public class DataImportService: IDataImportService
+    public class DataImportService : IDataImportService
     {
-        private readonly string connectionString;
+        private readonly DatabaseConnection databaseConnection;
 
-        public DataImportService(string connectionString)
+        public DataImportService(DatabaseConnection databaseConnection)
         {
-            this.connectionString = connectionString;
+            this.databaseConnection = databaseConnection;
         }
 
-        public void ImportData(string[] lines)
+        public async Task ImportDataAsync(string jsonData, SqlConnection connection)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+           
+            var data = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(jsonData);
+
+            foreach (var item in data)
             {
-                connection.Open();
+                string countryId, industryId;
 
-                foreach (string line in lines)
+               
+                string selectCountryCommand = "SELECT CountryId FROM Country WHERE CountryName = @CountryName;";
+                using (SqlCommand command = new SqlCommand(selectCountryCommand, connection))
                 {
-                    string[] data = line.Split(',');
+                    command.Parameters.AddWithValue("@CountryName", item["Country"]);
+                    countryId = (await command.ExecuteScalarAsync())?.ToString();
+                }
 
-                   
-                    int countryId = InsertOrUpdateCountry(connection, data[4]);
+                
+                if (countryId == null)
+                {
+                    string insertCountryCommand = "INSERT INTO Country (CountryName) OUTPUT INSERTED.CountryId VALUES (@CountryName);";
+                    using (SqlCommand command = new SqlCommand(insertCountryCommand, connection))
+                    {
+                        command.Parameters.AddWithValue("@CountryName", item["Country"]);
+                        countryId = (await command.ExecuteScalarAsync()).ToString();
+                    }
+                }
 
-                    InsertOrganization(connection, data, countryId);
+               
+                string selectIndustryCommand = "SELECT IndustryId FROM Industry WHERE IndustryName = @IndustryName;";
+                using (SqlCommand command = new SqlCommand(selectIndustryCommand, connection))
+                {
+                    command.Parameters.AddWithValue("@IndustryName", item["Industry"]);
+                    industryId = (await command.ExecuteScalarAsync())?.ToString();
+                }
+                if (industryId == null)
+                {
+                    string insertIndustryCommand = "INSERT INTO Industry (IndustryName) OUTPUT INSERTED.IndustryId VALUES (@IndustryName);";
+                    using (SqlCommand command = new SqlCommand(insertIndustryCommand, connection))
+                    {
+                        command.Parameters.AddWithValue("@IndustryName", item["Industry"]);
+                        industryId = (await command.ExecuteScalarAsync()).ToString();
+                    }
+                }
+
+                
+                string insertOrganizationCommand = @"
+            INSERT INTO Organization (OrganizationId, Name, Website, CountryId, Description, Founded, IndustryId, NumberOfEmployees) 
+            VALUES (@OrganizationId, @Name, @Website, @CountryId, @Description, @Founded, @IndustryId, @NumberOfEmployees);";
+                using (SqlCommand command = new SqlCommand(insertOrganizationCommand, connection))
+                {
+                    command.Parameters.AddWithValue("@OrganizationId", item["Organization Id"]);
+                    command.Parameters.AddWithValue("@Name", item["Name"]);
+                    command.Parameters.AddWithValue("@Website", item["Website"]);
+                    command.Parameters.AddWithValue("@CountryId", countryId);
+                    command.Parameters.AddWithValue("@Description", item["Description"]);
+                    command.Parameters.AddWithValue("@Founded", item["Founded"]);
+                    command.Parameters.AddWithValue("@IndustryId", industryId);
+                    command.Parameters.AddWithValue("@NumberOfEmployees", item["Number of employees"]);
+                    await command.ExecuteNonQueryAsync();
                 }
             }
         }
 
-        public int InsertOrUpdateCountry(SqlConnection connection, string countryName)
-        {
-            string insertCountryQuery = @"IF NOT EXISTS (SELECT * FROM Country WHERE CountryName = @CountryName)
-                                          INSERT INTO Country (CountryName) VALUES (@CountryName);
-                                          SELECT CountryId FROM Country WHERE CountryName = @CountryName;";
 
-            using (SqlCommand cmd = new SqlCommand(insertCountryQuery, connection))
-            {
-                cmd.Parameters.AddWithValue("@CountryName", countryName);
-                return (int)cmd.ExecuteScalar();
-            }
-        }
 
-        public void InsertOrganization(SqlConnection connection, string[] data, int countryId)
-        {
-            string insertOrgQuery = @"INSERT INTO Organization (Index, OrganizationId, Name, Website, CountryId, Description, Founded, Industry, NumberOfEmployees)
-                                      VALUES (@Index, @OrganizationId, @Name, @Website, @CountryId, @Description, @Founded, @Industry, @NumberOfEmployees)";
 
-            using (SqlCommand cmd = new SqlCommand(insertOrgQuery, connection))
-            {
-                cmd.Parameters.AddWithValue("@Index", data[0]);
-                cmd.Parameters.AddWithValue("@OrganizationId", data[1]);
-                cmd.Parameters.AddWithValue("@Name", data[2]);
-                cmd.Parameters.AddWithValue("@Website", data[3]);
-                cmd.Parameters.AddWithValue("@CountryId", countryId);
-                cmd.Parameters.AddWithValue("@Description", data[5]);
-                cmd.Parameters.AddWithValue("@Founded", data[6]);
-                cmd.Parameters.AddWithValue("@Industry", data[7]);
-                cmd.Parameters.AddWithValue("@NumberOfEmployees", data[8]);
-
-                cmd.ExecuteNonQuery();
-            }
-        }
     }
+
 }
