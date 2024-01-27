@@ -27,7 +27,7 @@ namespace DataReader.Domain.Services.EntityServices
         {
             string hashedPassword = _passwordHasher.HashPassword(UserPassword);
 
-            User User = new User { UserName = UserName, UserPassword = hashedPassword };
+            User User = new User { Username = UserName, Password = hashedPassword };
 
             await _userRepository.CreateAsync(User);
         }
@@ -36,7 +36,7 @@ namespace DataReader.Domain.Services.EntityServices
         {
             User user = await _userRepository.GetByUsername(UserName);
 
-            bool passwordIsValid = _passwordHasher.VerifyPassword(UserPassword, user.UserPassword);
+            bool passwordIsValid = _passwordHasher.VerifyPassword(UserPassword, user.Password);
 
             return passwordIsValid;
         }

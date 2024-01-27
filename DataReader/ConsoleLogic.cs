@@ -1,6 +1,8 @@
 ﻿using DataReader.Domain.Services.AbstractionServices;
+using Domain.Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +12,12 @@ namespace DataReader
     public class ConsoleLogic
     {
         private readonly IDataReaderService dataReaderService;
+        private readonly StatisticsService statisticsService;
 
-        public ConsoleLogic(IDataReaderService dataReaderService)
+        public ConsoleLogic(IDataReaderService dataReaderService, StatisticsService statisticsService)
         {
             this.dataReaderService = dataReaderService;
+            this.statisticsService = statisticsService;
         }
 
         public async Task Run()
@@ -32,7 +36,7 @@ namespace DataReader
                         await ReadData();
                         break;
                     case 2:
-                        // statistics logic 
+                        await ShowStatisticsMenu();
                         break;
                     case 3:
                         Environment.Exit(0);
@@ -41,6 +45,48 @@ namespace DataReader
                         Console.WriteLine("Invalid choice. Please try again.");
                         break;
                 }
+            }
+        }
+        private async Task ShowStatisticsMenu()
+        {
+            Console.WriteLine("Choose a statistic:");
+            Console.WriteLine("1. Companies with Most Employees");
+            Console.WriteLine("2. Total Employees by Industry");
+            Console.WriteLine("3. Grouping by Country and Industry");
+            Console.WriteLine("4. Cache Statistics");
+            Console.WriteLine("5. Back");
+
+            int choice = GetUserChoice();
+
+            switch (choice)
+            {
+                case 1:
+                    DisplayStatistic(await statisticsService.GetCompaniesWithMostEmployees());
+                    break;
+                case 2:
+                    DisplayStatistic(await statisticsService.GetTotalEmployeesByIndustry());
+                    break;
+                case 3:
+                    DisplayStatistic(await statisticsService.GetGroupingByCountryAndIndustry());
+                    break;
+                case 4:
+                    await statisticsService.CacheStatisticsAsync();
+                    Console.WriteLine("Statistics cached successfully.");
+                    break;
+                case 5:
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+
+        private void DisplayStatistic(DataTable dataTable)
+        {
+            Console.WriteLine("Statistics Result:");
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Console.WriteLine(string.Join(", ", row.ItemArray));
             }
         }
 
@@ -58,9 +104,6 @@ namespace DataReader
 
         private async Task ReadData()
         {
-            // Replace these paths with your actual paths
-            string sourceFolderPath = @"C:\DataReading";
-            string processedFolderPath = @"C:\ReadedData";
 
             await dataReaderService.ProcessDataAsync();
             Console.WriteLine("Data read and processed successfully.");

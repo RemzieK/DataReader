@@ -55,7 +55,7 @@ namespace DataReader.Domain.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
         //fix the method
-        private string GetUserRole(string UserName)
+       /* private string GetUserRole(string UserName)
         {
             if (accountBalance <= 1000)
             {
@@ -69,6 +69,6 @@ namespace DataReader.Domain.Services
             {
                 return "Master";
             }
-        }
+        }*/
     }
 }

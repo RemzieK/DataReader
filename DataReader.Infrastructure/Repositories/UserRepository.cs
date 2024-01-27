@@ -1,15 +1,16 @@
 ﻿using DataReader.Domain.Entities;
 using DataReader.Domain.Interfaces;
-using DataReader.Infrastructure.DatabaseConnection;
+using DataReader.Infrastructure.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace DataReader.Infrastructure.Repositories
 {
-    //add all of the properties from the user model and check how were the names in the database
+    
     public class UserRepository : Repository<User>, IUserRepository
     {
         private readonly DatabaseConnection.DatabaseConnection _dbConnection;
@@ -19,14 +20,15 @@ namespace DataReader.Infrastructure.Repositories
             _dbConnection = dbConnection;
         }
         protected override string TableName => "Users";
-        public async Task CreateAsync(User entity)
+        public async Task CreateAsync(User users)
         {
             using (var connection = _dbConnection.Connect())
             {
                 await connection.OpenAsync();
-                var command = new SqlCommand($"INSERT INTO {TableName} (UserName, UserPassword, Email, Birthday) VALUES (@UserName, @UserPassword, @Email, @Birthday)", connection);
-                command.Parameters.AddWithValue("@Username", entity.Username);
-                command.Parameters.AddWithValue("@Password", entity.Password);
+                var command = new SqlCommand($"INSERT INTO {TableName} (Username, Password, RoleId) VALUES (@Username, @Password, @RoleId)", connection);
+                command.Parameters.AddWithValue("@Username", users.Username);
+                command.Parameters.AddWithValue("@Password", users.Password);
+                command.Parameters.AddWithValue("@RoleId", users.RoleId);
                 await command.ExecuteNonQueryAsync();
             }
         }
@@ -35,10 +37,11 @@ namespace DataReader.Infrastructure.Repositories
             using (var connection = _dbConnection.Connect())
             {
                 await connection.OpenAsync();
-                var command = new SqlCommand($"UPDATE {TableName} SET UserName = @UserName, UserPassword = @UserPassword, Email = @Email, Birthday = @Birthday WHERE UserID = @UserID", connection);
+                var command = new SqlCommand($"UPDATE {TableName} SET UserName = @Username, Password = @Password, RoleId=@RoleId WHERE UserID = @UserID", connection);
                 command.Parameters.AddWithValue("@UserId", users.UserId);
                 command.Parameters.AddWithValue("@Username", users.Username);
                 command.Parameters.AddWithValue("@Password", users.Password);
+                command.Parameters.AddWithValue("@RoleId", users.RoleId);
                 await command.ExecuteNonQueryAsync();
             }
         }
@@ -48,59 +51,19 @@ namespace DataReader.Infrastructure.Repositories
             {
                 UserId = reader.GetInt32(reader.GetOrdinal("UserID")),
                 Username = reader.GetString(reader.GetOrdinal("UserName")),
-                //add the other 
+                Password = reader.GetString(reader.GetOrdinal("UserPassword")),
+                RoleId = reader.GetInt32(reader.GetOrdinal("RoleId"))
             };
         }
-        public async Task<IEnumerable<User>> GetAllAsync()
-        {
-            List<User> users = new List<User>();
-
-            using (var connection = _dbConnection.Connect())
-            {
-                await connection.OpenAsync();
-                using (var command = new SqlCommand($"SELECT * FROM {TableName}", connection))
-                {
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            var user = Map(reader);
-                            users.Add(user);
-                        }
-                    }
-                }
-            }
-            return users;
-        }
-        public async Task<User> GetByIdAsync(int ID)
-        {
-            User user = null;
-            using (var connection = _dbConnection.Connect())
-            {
-                await connection.OpenAsync();
-                using (var command = new SqlCommand($"SELECT * FROM {TableName} WHERE UserID = @UserID", connection))
-                {
-                    command.Parameters.AddWithValue("@UserID", ID);
-
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            user = Map(reader);
-                        }
-                    }
-                }
-            }
-            return user;
-        }
+        
         public async Task<User> GetByUsername(string username)
         {
             using (var connection = _dbConnection.Connect())
             {
                 await connection.OpenAsync();
-                using (var command = new SqlCommand($"SELECT * FROM {TableName} WHERE UserName = @UserName", connection))
+                using (var command = new SqlCommand($"SELECT * FROM {TableName} WHERE Username = @Username", connection))
                 {
-                    command.Parameters.AddWithValue("@UserName", username);
+                    command.Parameters.AddWithValue("@Username", username);
 
                     using (var reader = await command.ExecuteReaderAsync())
                     {
@@ -113,6 +76,7 @@ namespace DataReader.Infrastructure.Repositories
             }
             return null;
         }
+      
         public async Task<User> GetUserByUsernameAndPasswordAsync(string username, string password)
         {
             User user = null;
@@ -137,5 +101,17 @@ namespace DataReader.Infrastructure.Repositories
             return user;
 
         }
+
+        public override async Task DeleteAsync(int userId)
+        {
+            using (var connection = _dbConnection.Connect())
+            {
+                await connection.OpenAsync();
+                var command = new SqlCommand($"DELETE FROM {TableName} WHERE UserID = @UserID", connection);
+                command.Parameters.AddWithValue("@UserID", userId);
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+
     }
 }
