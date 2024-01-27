@@ -113,5 +113,9 @@ namespace DataReader.Infrastructure.Repositories
             }
         }
 
+        public Task SoftDeleteAsync(int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

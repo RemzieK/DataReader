@@ -9,7 +9,7 @@ namespace DataReader.Domain.Services.AbstractionServices
 {
     public interface IUserServices
     {
-
+      
         Task RegisterUser(string username, string password);
         Task<bool> AuthenticateUser(string username, string password);
         Task<User> GetUserByUsername(string username);

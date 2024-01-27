@@ -1,0 +1,7 @@
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.API\obj\Debug\net6.0\DataReader.API.csproj.AssemblyReference.cache
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.API\obj\Debug\net6.0\DataReader.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.API\obj\Debug\net6.0\DataReader.API.AssemblyInfoInputs.cache
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.API\obj\Debug\net6.0\DataReader.API.AssemblyInfo.cs
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.API\obj\Debug\net6.0\DataReader.API.csproj.CoreCompileInputs.cache
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.API\obj\Debug\net6.0\DataReader.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader.API\obj\Debug\net6.0\DataReader.API.MvcApplicationPartsAssemblyInfo.cache

@@ -31,10 +31,8 @@ namespace DataReader.Domain.Services
 
             if (user == null)
             {
-                return "User not found";
+                throw new InvalidOperationException("User not found");
             }
-
-           
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -44,9 +42,9 @@ namespace DataReader.Domain.Services
                 audience: _configuration["Jwt:Audience"],
                 claims: new List<Claim>
                 {
-                new Claim(ClaimTypes.NameIdentifier, user.ToString()),
-                new Claim(ClaimTypes.Name, UserName),
-               
+            new Claim(ClaimTypes.NameIdentifier, user.ToString()),
+            new Claim(ClaimTypes.Name, UserName),
+            new Claim(ClaimTypes.Role, user.Role),
                 },
                 expires: DateTime.Now.AddHours(2),
                 signingCredentials: credentials
@@ -54,21 +52,7 @@ namespace DataReader.Domain.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-        //fix the method
-       /* private string GetUserRole(string UserName)
-        {
-            if (accountBalance <= 1000)
-            {
-                return "Usual";
-            }
-            else if (accountBalance > 1000 && accountBalance <= 10000)
-            {
-                return "Advanced";
-            }
-            else
-            {
-                return "Master";
-            }
-        }*/
+
+        
     }
 }

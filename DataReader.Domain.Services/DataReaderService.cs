@@ -30,40 +30,44 @@ namespace DataReader.Domain.Services
             {
                 string[] files = Directory.GetFiles(sourceFolderPath, "*.csv");
 
-               
-                using (SqlConnection connection = new SqlConnection(databaseConnection.ConnectionString))
+                foreach (string filePath in files)
                 {
-                    await connection.OpenAsync();
-
-                    foreach (string filePath in files)
+                    try
                     {
-                        List<string> lines = new List<string>();
-                        using (StreamReader reader = new StreamReader(filePath))
+                        using (SqlConnection connection = new SqlConnection(databaseConnection.ConnectionString))
                         {
-                            string line;
-                            while ((line = await reader.ReadLineAsync()) != null)
+                            await connection.OpenAsync();
+                            List<string> lines = new List<string>();
+
+                            using (StreamReader reader = new StreamReader(filePath))
                             {
-                                lines.Add(line);
+                                string line;
+                                while ((line = await reader.ReadLineAsync()) != null)
+                                {
+                                    lines.Add(line);
+                                }
                             }
+
+                            string jsonData = ConvertCsvToJson(lines.ToArray());
+                            await dataImportService.ImportDataAsync(jsonData, connection);
+
+                            string fileName = Path.GetFileName(filePath);
+                            string destinationPath = Path.Combine(processedFolderPath, fileName);
+                            File.Move(filePath, destinationPath);
                         }
-
-                        string jsonData = ConvertCsvToJson(lines.ToArray());
-
-                       
-                        await dataImportService.ImportDataAsync(jsonData, connection);
-
-                        string fileName = Path.GetFileName(filePath);
-                        string destinationPath = Path.Combine(processedFolderPath, fileName);
-                        File.Move(filePath, destinationPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error processing file {filePath}: {ex.Message}");
                     }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
-              
             }
         }
+
 
 
         static string ConvertCsvToJson(string[] lines)

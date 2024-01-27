@@ -40,9 +40,12 @@ namespace DataReader.Domain.Services.EntityServices
 
             return passwordIsValid;
         }
-        public async Task AddUser(User user)
+        public async Task AddUser(User user, string requestingUser)
         {
-            await _userRepository.CreateAsync(user);
+            if (_authorizationServices.IsAdmin(requestingUser))
+            {
+                await _userRepository.CreateAsync(user);
+            }
         }
 
         public async Task<User> GetUserByUsername(string username)
@@ -52,6 +55,13 @@ namespace DataReader.Domain.Services.EntityServices
         public async Task<User> GetByIdAsync(int UserID)
         {
             return await _userRepository.GetByIdAsync(UserID);
+        }
+        public async Task SoftDeleteAsync(int userId, string requestingUser)
+        {
+            if (_authorizationServices.IsAdmin(requestingUser))
+            {
+                await _userRepository.SoftDeleteAsync(userId);
+            }
         }
 
     }
