@@ -1,5 +1,6 @@
 ﻿using DataReader.Domain.Entities;
 using DataReader.Domain.Services.AbstractionServices;
+using DataReader.Infrastructure.DatabaseConnection;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -7,7 +8,8 @@ namespace DataReader.Domain.Services
 {
     public class DownloadPdf : IDownloadPdf
     {
-        public MemoryStream GeneratePdf(Organization organization)
+
+        public MemoryStream GenerateCompanyPdf(Organization organization)
         {
             var memoryStream = new MemoryStream();
             var document = new Document();
@@ -26,4 +28,6 @@ namespace DataReader.Domain.Services
         }
 
     }
+
+
 }

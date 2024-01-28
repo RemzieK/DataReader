@@ -1,12 +1,6 @@
 ﻿using DataReader.Domain.Entities;
 using DataReader.Domain.Interfaces;
-using DataReader.Infrastructure.DTO;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataReader.Infrastructure.Repositories
 {

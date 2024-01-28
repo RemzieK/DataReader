@@ -35,3 +35,7 @@ C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader\obj\Debug\net6.0\ref
 C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader\obj\Debug\net6.0\DataReader.pdb
 C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader\obj\Debug\net6.0\DataReader.genruntimeconfig.cache
 C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader\obj\Debug\net6.0\ref\DataReader.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader\bin\Debug\net6.0\itextsharp.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Abstractions.dll
+C:\Users\Remi\Pictures\Visual Studio\Data_Reader\DataReader\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Features.dll

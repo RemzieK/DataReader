@@ -9,6 +9,6 @@ namespace DataReader.Domain.Services.AbstractionServices
 {
     public interface IDownloadPdf
     {
-        MemoryStream GeneratePdf(Organization organization);
+        MemoryStream GenerateCompanyPdf(Organization organization);
     }
 }

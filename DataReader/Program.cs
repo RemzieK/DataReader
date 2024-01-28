@@ -7,7 +7,11 @@ using DataReader.Domain.Services.AbstractionServices;
 using DataReader.Infrastructure.DatabaseConnection;
 using Domain.Services;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+using Domain.Services;
+using Microsoft.Extensions.Configuration;
+using System;
+
+
 
 
 
@@ -16,6 +20,7 @@ class Program
     static void Main()
     {
         var connectionString = "Server=localhost;Database=DataReader;User Id=sa;Password=sqldocker2022;";
+      
 
         var databaseConnection = new DatabaseConnection(connectionString);
         var dataImportService = new DataImportService(databaseConnection);

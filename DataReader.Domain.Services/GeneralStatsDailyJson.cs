@@ -25,11 +25,11 @@ namespace DataReader.Domain.Services
             var groupingByCountryAndIndustry = await _statisticsService.GetGroupingByCountryAndIndustry();
 
             var statistics = new Dictionary<string, DataTable>
-    {
-        { "CompaniesWithMostEmployees", companiesWithMostEmployees },
-        { "TotalEmployeesByIndustry", totalEmployeesByIndustry },
-        { "GroupingByCountryAndIndustry", groupingByCountryAndIndustry }
-    };
+            {
+                { "CompaniesWithMostEmployees", companiesWithMostEmployees },
+                { "TotalEmployeesByIndustry", totalEmployeesByIndustry },
+                { "GroupingByCountryAndIndustry", groupingByCountryAndIndustry }
+            };
 
             var json = JsonConvert.SerializeObject(statistics, Formatting.Indented);
 
