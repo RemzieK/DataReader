@@ -79,20 +79,17 @@ namespace DataReader.Infrastructure.Repositories
             };
         }
 
-
-        
-       
-
-        public override async Task DeleteAsync(int organizationId)
+        public override async Task SoftDeleteAsync(int organizationId)
         {
-            using (var connection = _dbConnection.Connect())
+            var organization = await GetByIdAsync(organizationId);
+
+            if (organization != null)
             {
-                await connection.OpenAsync();
-                var command = new SqlCommand($"DELETE FROM {TableName} WHERE OrganizationId = @OrganizationId", connection);
-                command.Parameters.AddWithValue("@OrganizationId", organizationId);
-                await command.ExecuteNonQueryAsync();
+                organization.IsDeleted = true;
+                await UpdateAsync(organization);
             }
         }
+
     }
 }
 

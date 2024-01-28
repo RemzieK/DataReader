@@ -12,7 +12,7 @@ namespace DataReader.Domain.Interfaces
         Task<IEnumerable<T>> GetAllAsync();
         Task CreateAsync(T entity);
         Task UpdateAsync(T entity);
-        Task DeleteAsync(int ID);
+        Task SoftDeleteAsync(int Id);
     }
 
 }

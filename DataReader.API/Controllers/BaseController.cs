@@ -1,4 +1,5 @@
 ﻿using DataReader.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataReader.API.Controllers
@@ -37,6 +38,7 @@ namespace DataReader.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("Create")]
         public async Task<ActionResult> Create(T entity)
         {
@@ -45,6 +47,7 @@ namespace DataReader.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("Update")]
         public async Task<ActionResult> Update(T entity)
         {
@@ -53,11 +56,13 @@ namespace DataReader.API.Controllers
         }
 
         [HttpDelete]
-        [Route("Delete")]
-        public async Task<ActionResult> Delete(int id)
+        [Authorize(Roles = "Admin")]
+        [Route("SoftDelete")]
+        public async Task<ActionResult> SoftDelete(int id)
         {
-            await _baseRepository.DeleteAsync(id);
+            await _baseRepository.SoftDeleteAsync(id);
             return Ok();
         }
+
     }
 }

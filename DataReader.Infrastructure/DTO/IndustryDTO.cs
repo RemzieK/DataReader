@@ -10,5 +10,6 @@ namespace DataReader.Infrastructure.DTO
     {
         public int IndustryId { get; set; }
         public string? IndustryName { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

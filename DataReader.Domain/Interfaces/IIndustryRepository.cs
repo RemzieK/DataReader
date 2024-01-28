@@ -11,8 +11,6 @@ namespace DataReader.Domain.Interfaces
     {
         Task CreateAsync(Industry industry);
         Task UpdateAsync(Industry industry);
-     
-    
-        Task DeleteAsync(int industryId);
+        Task SoftDeleteAsync(int industryId);
     }
 }

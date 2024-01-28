@@ -10,5 +10,6 @@ namespace DataReader.Infrastructure.DTO
     {
         public int CountryId { get; set; }
         public string? CountryName { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

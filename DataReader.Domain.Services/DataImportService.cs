@@ -83,10 +83,6 @@ namespace DataReader.Domain.Services
                 }
             }
         }
-
-
-
-
     }
 
 }

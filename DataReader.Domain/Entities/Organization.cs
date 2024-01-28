@@ -16,6 +16,7 @@ namespace DataReader.Domain.Entities
         public int Founded { get; set; }
         public int IndustryId { get; set; }
         public int NumberOfEmployees { get; set; }
+        public bool IsDeleted { get; set; }
 
         public Country Country { get; set; }
         public Industry Industry { get; set; }

@@ -21,20 +21,20 @@ namespace DataReader.Domain.Services
 
             if (jsonToken == null)
             {
-                // Token is not a valid JWT
+               
                 return false;
             }
 
-            // Check if the role claim exists in the token
+            
             var roleClaim = jsonToken.Claims.FirstOrDefault(c => c.Type == RoleClaimType);
 
             if (roleClaim == null)
             {
-                // Role claim not found
+                
                 return false;
             }
 
-            // Check if the user has the Admin role
+            
             return roleClaim.Value == AdminRole;
         }
         public bool Authorize(string token, string requiredRole)

@@ -10,5 +10,6 @@ namespace DataReader.Infrastructure.DTO
     {
         public int RoleId { get; set; }
         public string? RoleName { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

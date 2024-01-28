@@ -1,6 +1,7 @@
 ﻿using DataReader.Domain.Entities;
 using DataReader.Domain.Interfaces;
 using DataReader.Domain.Services.AbstractionServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataReader.API.Controllers
@@ -19,6 +20,7 @@ namespace DataReader.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("CreateUser")]
         public async Task<ActionResult> CreateUser(User user)
         {
@@ -27,6 +29,7 @@ namespace DataReader.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("UpdateUser")]
         public async Task<ActionResult> UpdateUser(User user)
         {
@@ -35,12 +38,21 @@ namespace DataReader.API.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteUser")]
-        public async Task<ActionResult> DeleteUser(int id)
+        [Authorize(Roles = "Admin")]
+        [Route("SoftDeleteUser")]
+        public async Task<ActionResult<string?>> SoftDeleteUser(int userId)
         {
-            await _userRepository.DeleteAsync(id);
-            return Ok();
+            try
+            {
+                await _userRepository.SoftDeleteAsync(userId);
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return NotFound("User not found");
+            }
         }
+
 
         [HttpGet]
         [Route("GetUserByNameAndPassword")]

@@ -101,21 +101,15 @@ namespace DataReader.Infrastructure.Repositories
             return user;
 
         }
-
-        public override async Task DeleteAsync(int userId)
+        public override async Task SoftDeleteAsync(int userId)
         {
-            using (var connection = _dbConnection.Connect())
+            var user = await GetByIdAsync(userId);
+
+            if (user != null)
             {
-                await connection.OpenAsync();
-                var command = new SqlCommand($"DELETE FROM {TableName} WHERE UserID = @UserID", connection);
-                command.Parameters.AddWithValue("@UserID", userId);
-                await command.ExecuteNonQueryAsync();
+                user.IsDeleted = true;
+                await UpdateAsync(user);
             }
-        }
-
-        public Task SoftDeleteAsync(int userId)
-        {
-            throw new NotImplementedException();
         }
     }
 }

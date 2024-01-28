@@ -10,12 +10,12 @@ namespace DataReader.Domain.Interfaces
     public interface IUserRepository : IRepository<User>
     {
 
-        Task SoftDeleteAsync(int userId);
+      
         Task CreateAsync(User users);
         Task UpdateAsync(User users);
         Task<User> GetUserByUsernameAndPasswordAsync(string username, string password);
         Task<User> GetByUsername(string username);
-        Task DeleteAsync(int userId);
+        Task SoftDeleteAsync(int userId);
 
     }
 }

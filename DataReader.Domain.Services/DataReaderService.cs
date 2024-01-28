@@ -15,6 +15,7 @@ namespace DataReader.Domain.Services
     {
         private readonly IDataImportService dataImportService;
         private readonly DatabaseConnection databaseConnection;
+
         private readonly string sourceFolderPath = @"C:\DataReading";
         private readonly string processedFolderPath = @"C:\ReadedData";
 
@@ -67,8 +68,6 @@ namespace DataReader.Domain.Services
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
-
-
 
         static string ConvertCsvToJson(string[] lines)
         {

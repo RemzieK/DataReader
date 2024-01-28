@@ -1,5 +1,6 @@
 ﻿using DataReader.Domain.Entities;
 using DataReader.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataReader.API.Controllers
@@ -16,6 +17,7 @@ namespace DataReader.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("CreateOrganization")]
         public async Task<ActionResult> CreateOrganization(Organization organization)
         {
@@ -24,6 +26,7 @@ namespace DataReader.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("UpdateOrganization")]
         public async Task<ActionResult> UpdateOrganization(Organization organization)
         {
@@ -32,11 +35,20 @@ namespace DataReader.API.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteOrganization")]
-        public async Task<ActionResult> DeleteOrganization(int id)
+        [Authorize(Roles = "Admin")]
+        [Route("SoftDeleteOrganization")]
+        public async Task<ActionResult> SoftDeleteOrganization(int id)
         {
-            await _organizationRepository.DeleteAsync(id);
-            return Ok();
+            try
+            {
+                await _organizationRepository.SoftDeleteAsync(id);
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return NotFound("Ogranization not found");
+            }
         }
+
     }
 }

@@ -58,13 +58,13 @@ namespace DataReader.Infrastructure.Repositories
                 return default;
             }
         }
-        public virtual async Task DeleteAsync(int ID)
+        public virtual async Task SoftDeleteAsync(int ID)
         {
             using (var connection = _dbConnection.Connect())
             {
                 connection.Open();
 
-                using (var command = new SqlCommand($"DELETE FROM {TableName} WHERE Id = @id", connection))
+                using (var command = new SqlCommand($"UPDATE {TableName} SET IsDeleted = 1 WHERE Id = @id", connection))
                 {
                     command.Parameters.AddWithValue("@ID", ID);
 
@@ -72,6 +72,7 @@ namespace DataReader.Infrastructure.Repositories
                 }
             }
         }
+
         protected abstract T Map(SqlDataReader reader);
     }
 }

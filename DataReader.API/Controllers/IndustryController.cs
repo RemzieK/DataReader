@@ -4,10 +4,11 @@ using DataReader.Domain.Interfaces;
 using DataReader;
 using System.Threading.Tasks;
 using DataReader.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DataReader.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("apiIndustryController")]
     [ApiController]
     public class IndustryController : BaseController<Industry>
     {
@@ -27,6 +28,7 @@ namespace DataReader.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("CreateIndustry")]
         public async Task<ActionResult<int>> CreateIndustry(Industry industry)
         {
@@ -36,6 +38,7 @@ namespace DataReader.API.Controllers
 
 
         [HttpPost]
+        [Authorize]
         [Route("UpdateIndustry")]
         public async Task<ActionResult<int>> UpdateIndustry(Industry industry)
         {
@@ -45,12 +48,13 @@ namespace DataReader.API.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteIndustry")]
-        public async Task<ActionResult> DeleteIndustry(int industryId)
+        [Authorize(Roles = "Admin")]
+        [Route("SoftDeleteIndustry")]
+        public async Task<ActionResult> SoftDeleteIndustry(int industryId)
         {
             try
             {
-                await _industryRepository.DeleteAsync(industryId);
+                await _industryRepository.SoftDeleteAsync(industryId);
                 return NoContent();
             }
             catch (Exception)
@@ -58,5 +62,6 @@ namespace DataReader.API.Controllers
                 return NotFound("Industry not found");
             }
         }
+
     }
 }

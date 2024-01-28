@@ -5,6 +5,7 @@ using DataReader;
 using System.Threading.Tasks;
 using DataReader.Domain.Entities;
 using DataReader.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DataReader.API.Controllers
 {
@@ -28,6 +29,7 @@ namespace DataReader.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("CreateCountry")]
         public async Task<ActionResult<int>> CreateCountry(Country country)
         {
@@ -37,7 +39,7 @@ namespace DataReader.API.Controllers
 
 
         [HttpGet]
-        [Route("GetById")]
+        [Route("GetCountryById")]
         public async Task<ActionResult<Country>> GetCountryById(int id)
         {
             var country = await _countryRepository.GetByIdAsync(id);
@@ -52,23 +54,21 @@ namespace DataReader.API.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("UpdateCountry")]
         public async Task<ActionResult> UpdateCountry( Country country)
         {
-            
                 await _countryRepository.UpdateAsync(country);
                 return Ok(country.CountryId);
-            
-            
-            
         }
         [HttpDelete]
-        [Route("DeleteCountry")]
-        public async Task<ActionResult> DeleteCountry(int countryId)
+        [Authorize(Roles = "Admin")]
+        [Route("SoftDeleteCountry")]
+        public async Task<ActionResult> SoftDeleteCountry(int countryId)
         {
             try
             {
-                await _countryRepository.DeleteAsync(countryId);
+                await _countryRepository.SoftDeleteAsync(countryId);
                 return NoContent();
             }
             catch (Exception)
@@ -76,6 +76,7 @@ namespace DataReader.API.Controllers
                 return NotFound("Country not found");
             }
         }
+
 
 
     }
